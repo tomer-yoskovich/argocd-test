@@ -1,0 +1,20 @@
+# This repository is using the app-of-apps pattern - which is very popular with ArgoCD (https://argoproj.github.io/argo-cd/operator-manual/cluster-bootstrapping/)
+# Which means we have an app (called apps) that only consists of other apps
+# This allows you to declaratively manage a group of app that can be deployed and configured in concert
+
+# Here's how to deploy the apps 'application':
+# argocd app create apps \
+#     --dest-namespace argocd \
+#     --dest-server https://kubernetes.default.svc \
+#     --repo https://github.com/tomer-yoskovich/argocd-test.git \
+#     --path apps  
+# argocd app sync apps  
+
+spec:
+  destination:
+    # deploys applications into the same cluster ArgoCD is deployed to.
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps
+    # Fix the targetRevision of each template to a specific Git commit SHA to make sure that, even if the child apps repo changes, the app will only change when the parent app change that revision. Alternatively, you can set it to HEAD or a branch name.
+    targetRevision: HEAD
