@@ -1,17 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: helm-hooks
+  name: portal
   namespace: argocd
-  finalizers:
+  finalizers: # ensure that your apps are deleted correctly
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: helm-hooks
+    namespace: portalns
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    path: helm-hooks
-    repoURL: {{ .Values.spec.source.repoURL }}
+    path: helm-guestbook
+    repoURL: https://gitlab.com/tomer.yoskovich/portal
     targetRevision: {{ .Values.spec.source.targetRevision }}
-
