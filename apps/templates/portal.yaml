@@ -11,6 +11,6 @@ spec:
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    path: helm-guestbook
+    path: helm-portal-server
     repoURL: https://gitlab.com/tomer.yoskovich/portal.git
     targetRevision: {{ .Values.spec.source.targetRevision }}
